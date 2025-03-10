@@ -5,3 +5,7 @@
   --color-black-dark: #202124;
   --color-gray: #bdc1c6;
 }
+
+body {
+  background-color: #3c4043;
+}

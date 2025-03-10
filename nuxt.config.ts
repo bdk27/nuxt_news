@@ -9,4 +9,8 @@ export default defineNuxtConfig({
     plugins: [tailwindcss()],
   },
   modules: ["@pinia/nuxt"],
+  runtimeConfig: {
+    // 這裡的 newsApiKey 只會在 server 端可見
+    newsApiKey: process.env.NEWS_API_KEY,
+  },
 });
