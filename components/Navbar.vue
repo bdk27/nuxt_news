@@ -13,18 +13,27 @@ const router = [
 </script>
 
 <template>
-  <div class="container mx-auto shadow p-3">
-    <h1 class="text-xl">News新聞網</h1>
-    <nav class="flex justify-start space-x-4 overflow-x-scroll mt-3">
-      <NuxtLink
-        v-for="item in router"
-        :key="item.name"
-        :to="item.path"
-        class="whitespace-nowrap font-bold"
-        >{{ item.name }}</NuxtLink
+  <div class="bg-black-dark w-full px-3 py-3 md:px-0">
+    <div class="container mx-auto shadow">
+      <h1 class="text-2xl text-white md:text-center">
+        <span class="font-bold">News</span> 新聞網
+      </h1>
+      <nav
+        class="flex justify-start space-x-6 overflow-x-scroll md:overflow-hidden mt-3 md:justify-center"
       >
-      <!-- <NuxtLink to="/view/123">View 123</NuxtLink> -->
-    </nav>
+        <NuxtLink
+          v-for="item in router"
+          :key="item.name"
+          :to="item.path"
+          class="whitespace-nowrap font-bold text-gray hover:text-white"
+          :class="{
+            'border-white border-b-2 text-white': $route.path === item.path,
+          }"
+          >{{ item.name }}</NuxtLink
+        >
+        <!-- <NuxtLink to="/view/123">View 123</NuxtLink> -->
+      </nav>
+    </div>
   </div>
 </template>
 
