@@ -18,6 +18,19 @@ onMounted(() => {
   newsStore.fetchNews(category.value);
   console.log("fetching news: ", newsStore.articles);
 });
+
+function formatDate(data: string) {
+  const options: Intl.DateTimeFormatOptions = {
+    year: "numeric",
+    month: "2-digit",
+    day: "2-digit",
+    hour: "2-digit",
+    minute: "2-digit",
+  };
+  return new Date(data)
+    .toLocaleDateString("zh-TW", options)
+    .replace(/\//g, "-");
+}
 </script>
 
 <template>
@@ -36,28 +49,32 @@ onMounted(() => {
     <div v-if="newsStore.loading" class="text-white">載入中...</div>
     <div v-if="newsStore.error">{{ newsStore.error }}</div>
     <div v-if="!newsStore.loading && !newsStore.error">
-      <div v-for="article in newsStore.articles[category]" :key="article.title">
+      <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-3">
         <div
-          class="flex flex-col justify-between mt-3 bg-black-dark rounded-md"
+          v-for="article in newsStore.articles[category]"
+          :key="article.title"
         >
-          <div>
-            <img
-              :src="article.urlToImage"
-              :alt="article.title"
-              loading="lazy"
-              class="rounded-t-md w-full"
-            />
+          <div class="bg-black-dark rounded-md">
+            <div class="h-48">
+              <img
+                :src="article.urlToImage"
+                :alt="article.title"
+                loading="lazy"
+                class="rounded-t-md w-full h-full object-cover"
+              />
+            </div>
+            <div class="p-3">
+              <p class="text-gray text-xs mb-2">
+                {{ formatDate(article.publishedAt) }}
+              </p>
+              <h2 class="text-white font-bold text-sm">
+                {{ article.title }}
+              </h2>
+            </div>
           </div>
 
-          <div class="p-3">
-            <p class="text-gray text-xs mb-2">{{ article.publishedAt }}</p>
-            <h2 class="text-white font-bold text-sm">
-              {{ article.title }}
-            </h2>
-          </div>
+          <!-- <p class="text-gray">{{ article.description }}</p> -->
         </div>
-
-        <!-- <p class="text-gray">{{ article.description }}</p> -->
       </div>
     </div>
   </div>
