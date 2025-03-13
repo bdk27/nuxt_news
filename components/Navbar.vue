@@ -1,9 +1,9 @@
 <script setup lang="ts">
 const router = [
   { name: "首頁", path: "/" },
+  { name: "綜合", path: "/news/general" },
   { name: "商業", path: "/news/business" },
   { name: "娛樂", path: "/news/entertainment" },
-  { name: "綜合", path: "/news/general" },
   { name: "健康", path: "/news/health" },
   { name: "科學", path: "/news/science" },
   { name: "體育", path: "/news/sports" },
@@ -14,7 +14,7 @@ const router = [
 
 <template>
   <div class="bg-black-dark w-full px-3 py-3 md:px-0">
-    <div class="container mx-auto shadow">
+    <div class="container mx-auto">
       <h1 class="text-2xl text-white md:text-center">
         <span class="font-bold">News</span> 新聞網
       </h1>

@@ -4,21 +4,20 @@ const newsStore = useNewsStore();
 
 const category = computed<string>(() => route.params.id as string);
 const categories: Record<string, { name: string; icon: string }> = {
+  general: { name: "綜合", icon: "fa-location-dot" },
   business: { name: "商業", icon: "fa-briefcase" },
   entertainment: { name: "娛樂", icon: "fa-ticket" },
-  general: { name: "綜合", icon: "fa-location-dot" },
   health: { name: "健康", icon: "fa-syringe" },
   science: { name: "科學", icon: "fa-flask" },
   sports: { name: "體育", icon: "fa-basketball" },
   technology: { name: "科技", icon: "fa-microchip" },
-  // test: { name: "測試", icon: "/icons/test.png" },
 };
 
 onMounted(() => {
-  newsStore.fetchNews(category.value);
+  newsStore.fetchEverythingNews(category.value);
   console.log("fetching news: ", newsStore.articles);
 });
-
+//調整時間格式
 function formatDate(data: string) {
   const options: Intl.DateTimeFormatOptions = {
     year: "numeric",
@@ -47,30 +46,29 @@ function formatDate(data: string) {
     </div>
 
     <div v-if="newsStore.loading" class="text-white">載入中...</div>
-    <div v-if="newsStore.error">{{ newsStore.error }}</div>
+    <div v-if="newsStore.error" class="text-white">{{ newsStore.error }}</div>
     <div v-if="!newsStore.loading && !newsStore.error">
       <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-3">
         <div
           v-for="article in newsStore.articles[category]"
           :key="article.title"
+          class="bg-black-dark rounded-md flex flex-col"
         >
-          <div class="bg-black-dark rounded-md">
-            <div class="h-48">
-              <img
-                :src="article.urlToImage"
-                :alt="article.title"
-                loading="lazy"
-                class="rounded-t-md w-full h-full object-cover"
-              />
-            </div>
-            <div class="p-3">
-              <p class="text-gray text-xs mb-2">
-                {{ formatDate(article.publishedAt) }}
-              </p>
-              <h2 class="text-white font-bold text-sm">
-                {{ article.title }}
-              </h2>
-            </div>
+          <div class="h-48">
+            <img
+              :src="article.urlToImage"
+              :alt="article.title"
+              loading="lazy"
+              class="rounded-t-md w-full h-full object-cover"
+            />
+          </div>
+          <div class="p-3 flex-grow">
+            <p class="text-gray text-xs mb-2">
+              {{ formatDate(article.publishedAt) }}
+            </p>
+            <h2 class="text-white font-bold text-sm">
+              {{ article.title }}
+            </h2>
           </div>
 
           <!-- <p class="text-gray">{{ article.description }}</p> -->
