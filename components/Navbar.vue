@@ -8,7 +8,6 @@ const router = [
   { name: "科學", path: "/news/science" },
   { name: "體育", path: "/news/sports" },
   { name: "科技", path: "/news/technology" },
-  { name: "測試", path: "/news/test" },
 ];
 </script>
 

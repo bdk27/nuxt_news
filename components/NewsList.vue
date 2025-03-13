@@ -3,7 +3,6 @@ interface Article {
   title: string;
   urlToImage?: string;
   publishedAt: string;
-  // 可根據需求加入其他屬性，例如 description、content 等
 }
 const props = defineProps({
   category: {
@@ -40,8 +39,8 @@ function formatDate(data: string) {
 
 <template>
   <div>
-    <div v-if="loading" class="text-white">載入中...</div>
-    <div v-if="error" class="text-white">{{ error }}</div>
+    <div v-if="loading" class="text-white text-center text-lg">載入中...</div>
+    <div v-if="error" class="text-white text-center text-lg">{{ error }}</div>
     <div v-if="!loading && !error">
       <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-3">
         <div

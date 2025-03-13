@@ -1,5 +1,6 @@
 <script setup lang="ts">
 const newsStore = useNewsStore();
+const router = useRouter();
 
 const categories = {
   general: "綜合",
@@ -16,6 +17,10 @@ onMounted(() => {
     newsStore.fetchHeadlinesNews(category);
   });
 });
+// 跳轉其他頁面
+function navigateToCategory(categoryKey: string) {
+  router.push(`/news/${categoryKey}`);
+}
 </script>
 
 <template>
@@ -37,6 +42,7 @@ onMounted(() => {
       <div class="text-center">
         <button
           class="text-gray mt-3 text-center text-lg hover:text-white cursor-pointer"
+          @click="navigateToCategory(categoryKey)"
         >
           查看更多文章
           <font-awesome-icon icon="fa-solid fa-caret-right" />
