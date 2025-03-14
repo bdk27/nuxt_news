@@ -4,17 +4,17 @@ const newsStore = useNewsStore();
 
 const category = computed<string>(() => route.params.id as string);
 const categories = {
-  general: { name: "綜合", icon: "fa-location-dot" },
-  business: { name: "商業", icon: "fa-briefcase" },
-  entertainment: { name: "娛樂", icon: "fa-ticket" },
-  health: { name: "健康", icon: "fa-syringe" },
-  science: { name: "科學", icon: "fa-flask" },
-  sports: { name: "體育", icon: "fa-basketball" },
-  technology: { name: "科技", icon: "fa-microchip" },
+  general: { name: "綜合", icon: "fa-location-dot", color: "#007BFF" },
+  business: { name: "商業", icon: "fa-briefcase", color: "#FF8C00" },
+  entertainment: { name: "娛樂", icon: "fa-ticket", color: "#E91E63" },
+  health: { name: "健康", icon: "fa-syringe", color: "#28A745" },
+  science: { name: "科學", icon: "fa-flask", color: "#6F42C1" },
+  sports: { name: "體育", icon: "fa-basketball", color: "#DC3545" },
+  technology: { name: "科技", icon: "fa-microchip", color: "#17A2B8" },
 };
 
 onMounted(() => {
-  newsStore.fetchEverythingNews(category.value);
+  // newsStore.fetchEverythingNews(category.value);
   console.log("fetching news: ", newsStore.articles);
 });
 </script>
@@ -23,9 +23,12 @@ onMounted(() => {
   <div>
     <div class="flex items-center px-3">
       <font-awesome-icon
-        :icon="categories[category as keyof typeof categories]?.icon"
+        :icon="categories[category as keyof typeof
+      categories]?.icon"
         size="lg"
-        class="text-gray mr-1"
+        :style="{ background:
+      categories[category as keyof typeof categories]?.color }"
+        class="mr-1 rounded-full p-2 text-white"
       />
       <h1 class="text-2xl font-bold text-white my-5">
         {{ categories[category as keyof typeof categories]?.name }}

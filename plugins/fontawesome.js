@@ -9,6 +9,7 @@ import {
   faBasketball,
   faMicrochip,
   faCaretRight,
+  faUser,
 } from "@fortawesome/free-solid-svg-icons";
 
 config.autoAddCss = false;
@@ -21,7 +22,8 @@ library.add(
   faFlask,
   faBasketball,
   faMicrochip,
-  faCaretRight
+  faCaretRight,
+  faUser
 );
 
 export default defineNuxtPlugin((nuxtApp) => {
