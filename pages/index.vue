@@ -13,9 +13,7 @@ const categories = {
 };
 
 onMounted(() => {
-  Object.keys(categories).forEach((category) => {
-    newsStore.fetchHeadlinesNews(category);
-  });
+  newsStore.fetchHeadlinesNews(Object.keys(categories));
 });
 // 跳轉其他頁面
 function navigateToCategory(categoryKey: string) {
