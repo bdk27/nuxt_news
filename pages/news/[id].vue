@@ -1,6 +1,6 @@
 <script setup lang="ts">
 const route = useRoute();
-const newsStore = useNewsStore();
+const newsStore = useEverythingNewsStore();
 
 const category = computed<string>(() => route.params.id as string);
 const categories = {
@@ -14,7 +14,7 @@ const categories = {
 };
 
 onMounted(() => {
-  // newsStore.fetchEverythingNews(category.value);
+  newsStore.fetchEverythingNews(category.value);
   console.log("fetching news: ", newsStore.articles);
 });
 </script>

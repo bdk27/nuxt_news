@@ -1,4 +1,6 @@
 <script setup lang="ts">
+const newsStore = useFavoriteNewsStore();
+
 interface Article {
   title: string;
   urlToImage?: string;
@@ -42,6 +44,16 @@ function formatDate(data: string) {
 function navigateToArticle(url: string) {
   window.open(url, "_blank");
 }
+
+function toggleFavorite(article: Article) {
+  const articleData = { id: article.title, article };
+  if (newsStore.isFavorite(article.title)) {
+    confirm("確定要取消收藏嗎？") &&
+      newsStore.removeFavoriteArticle(article.title);
+  } else {
+    newsStore.addFavoriteArticle(articleData);
+  }
+}
 </script>
 
 <template>
@@ -65,13 +77,26 @@ function navigateToArticle(url: string) {
             />
           </div>
           <div class="p-4 flex-grow">
-            <div class="mb-3">
-              <p class="text-gray text-xs">
-                {{ formatDate(article.publishedAt) }}
-              </p>
-              <p class="text-xs text-gray">
-                {{ article.source.name }} / {{ article.author || "anonymous" }}
-              </p>
+            <div class="mb-3 flex items-center justify-between">
+              <div>
+                <p class="text-gray text-xs">
+                  {{ formatDate(article.publishedAt) }}
+                </p>
+                <p class="text-xs text-gray">
+                  {{ article.source.name }} /
+                  {{ article.author || "anonymous" }}
+                </p>
+              </div>
+              <button
+                @click="toggleFavorite(article)"
+                class="text-gray hover:text-amber-300"
+              >
+                <font-awesome-icon
+                  icon="fa-solid fa-star"
+                  size="lg"
+                  class="text-gray hover:text-amber-300 cursor-pointer"
+                />
+              </button>
             </div>
             <h2 class="text-white font-bold text-md lg:text-lg mb-3">
               {{ article.title }}

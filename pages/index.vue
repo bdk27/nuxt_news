@@ -1,5 +1,5 @@
 <script setup lang="ts">
-const newsStore = useNewsStore();
+const newsStore = useHeadlinesNewsStore();
 const router = useRouter();
 
 const categories = {
