@@ -3,12 +3,15 @@ interface Article {
   title: string;
   urlToImage?: string;
   publishedAt: string;
+  author?: string;
+  source: {
+    name: string;
+  };
+  description?: string;
+  content?: string;
+  url: string;
 }
-const props = defineProps({
-  category: {
-    type: String,
-    default: "general",
-  },
+const { articles, loading, error } = defineProps({
   articles: {
     type: Array as PropType<Article[]>,
     default: () => [],
@@ -35,6 +38,10 @@ function formatDate(data: string) {
     .toLocaleDateString("zh-TW", options)
     .replace(/\//g, "-");
 }
+
+function navigateToArticle(url: string) {
+  window.open(url, "_blank");
+}
 </script>
 
 <template>
@@ -42,11 +49,12 @@ function formatDate(data: string) {
     <div v-if="loading" class="text-white text-center text-lg">載入中...</div>
     <div v-if="error" class="text-white text-center text-lg">{{ error }}</div>
     <div v-if="!loading && !error">
-      <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-3">
+      <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
         <div
           v-for="article in articles"
           :key="article.title"
-          class="bg-black-dark rounded-md flex flex-col"
+          class="bg-black-dark rounded-md flex flex-col cursor-pointer shadow hover:shadow-gray transition-shadow"
+          @click="navigateToArticle(article.url)"
         >
           <div class="relative h-48">
             <img
@@ -56,13 +64,21 @@ function formatDate(data: string) {
               class="rounded-t-md w-full h-full object-cover"
             />
           </div>
-          <div class="p-3 flex-grow">
-            <p class="text-gray text-xs mb-2">
-              {{ formatDate(article.publishedAt) }}
-            </p>
-            <h2 class="text-white font-bold text-sm">
+          <div class="p-4 flex-grow">
+            <div class="mb-3">
+              <p class="text-gray text-xs">
+                {{ formatDate(article.publishedAt) }}
+              </p>
+              <p class="text-xs text-gray">
+                {{ article.source.name }} / {{ article.author || "anonymous" }}
+              </p>
+            </div>
+            <h2 class="text-white font-bold text-md lg:text-lg mb-3">
               {{ article.title }}
             </h2>
+            <p class="text-xs md:text-sm text-gray mb-3">
+              {{ article.description }}
+            </p>
           </div>
         </div>
       </div>
