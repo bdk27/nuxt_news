@@ -88,13 +88,18 @@ function toggleFavorite(article: Article) {
                 </p>
               </div>
               <button
-                @click="toggleFavorite(article)"
+                @click.stop="toggleFavorite(article)"
                 class="text-gray hover:text-amber-300"
               >
                 <font-awesome-icon
                   icon="fa-solid fa-star"
                   size="lg"
-                  class="text-gray hover:text-amber-300 cursor-pointer"
+                  class="hover:text-amber-300 cursor-pointer"
+                  :class="
+                    newsStore.isFavorite(article.title)
+                      ? 'text-amber-300'
+                      : 'text-gray'
+                  "
                 />
               </button>
             </div>

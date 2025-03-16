@@ -11,7 +11,7 @@ export default defineNuxtConfig({
   vite: {
     plugins: [tailwindcss()],
   },
-  modules: ["@pinia/nuxt"],
+  modules: ["@pinia/nuxt", "pinia-plugin-persistedstate/nuxt"],
   build: {
     transpile: [
       "@fortawesome/fontawesome-svg-core",
