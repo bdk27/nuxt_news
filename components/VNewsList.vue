@@ -40,11 +40,11 @@ function formatDate(data: string) {
     .toLocaleDateString("zh-TW", options)
     .replace(/\//g, "-");
 }
-
+// 查看完整文章
 function navigateToArticle(url: string) {
   window.open(url, "_blank");
 }
-
+// (取消)收藏文章
 function toggleFavorite(article: Article) {
   const articleData = { id: article.title, article };
   if (newsStore.isFavorite(article.title)) {
@@ -70,7 +70,7 @@ function toggleFavorite(article: Article) {
         >
           <div class="relative h-48">
             <img
-              :src="article.urlToImage"
+              :src="article.urlToImage || '/default-image.jpg'"
               :alt="article.title"
               loading="lazy"
               class="rounded-t-md w-full h-full object-cover"
@@ -107,7 +107,7 @@ function toggleFavorite(article: Article) {
               {{ article.title }}
             </h2>
             <p class="text-xs md:text-sm text-gray mb-3">
-              {{ article.description }}
+              {{ article.description || "more..." }}
             </p>
           </div>
         </div>
