@@ -2,7 +2,7 @@ export const useHeadlinesNewsStore = defineStore("headlinesNews", () => {
   const headlinesArticles = ref<{ [key: string]: any[] }>({});
   const loading = ref(false);
   const error = ref<null | string>(null);
-  const apiKey = "5f6d37a17372422c85dce09b898d6090";
+  const apiKey = useRuntimeConfig().public.NEWS_API_KEY;
 
   async function fetchHeadlinesNews(categories: string[]) {
     loading.value = true;

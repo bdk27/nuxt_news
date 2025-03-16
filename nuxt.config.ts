@@ -19,4 +19,9 @@ export default defineNuxtConfig({
       "@fortawesome/vue-fontawesome",
     ],
   },
+  runtimeConfig: {
+    public: {
+      NEWS_API_KEY: process.env.NEWS_API_KEY,
+    },
+  },
 });

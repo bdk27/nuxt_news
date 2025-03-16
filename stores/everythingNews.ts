@@ -2,7 +2,7 @@ export const useEverythingNewsStore = defineStore("everythingNews", () => {
   const articles = ref<{ [key: string]: any[] }>({});
   const loading = ref(false);
   const error = ref<null | string>(null);
-  const apiKey = "5f6d37a17372422c85dce09b898d6090";
+  const apiKey = useRuntimeConfig().public.NEWS_API_KEY;
 
   async function fetchEverythingNews(category = "general") {
     if (articles.value[category]) {
