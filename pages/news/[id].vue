@@ -15,21 +15,22 @@ const categories = {
 
 onMounted(() => {
   newsStore.fetchEverythingNews(category.value);
-  console.log("fetching news: ", newsStore.articles);
 });
 </script>
 
 <template>
   <div>
     <div class="flex items-center px-3">
-      <font-awesome-icon
-        :icon="categories[category as keyof typeof
-      categories]?.icon"
-        size="lg"
-        :style="{ background:
-      categories[category as keyof typeof categories]?.color }"
-        class="mr-1 rounded-full p-2 text-white"
-      />
+      <div
+        class="mr-1 rounded-full text-white flex items-center justify-center w-[30px] h-[30px]"
+        :style="{ background: categories[category as keyof typeof categories]?.color }"
+      >
+        <font-awesome-icon
+          :icon="categories[category as keyof typeof categories]?.icon"
+          size="lg"
+        />
+      </div>
+
       <h1 class="text-2xl font-bold text-white my-5">
         {{ categories[category as keyof typeof categories]?.name }}
       </h1>
