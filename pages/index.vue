@@ -31,20 +31,14 @@ function navigateToCategory(categoryKey: string) {
       <h2 class="text-2xl font-bold text-white capitalize mb-1">
         {{ categoryName }}
       </h2>
-      <NewsList
+      <VNewsList
         :category="categoryKey"
         :articles="newsStore.headlinesArticles[categoryKey]"
         :loading="newsStore.loading"
         :error="newsStore.error ?? undefined"
       />
       <div class="text-center">
-        <button
-          class="text-gray mt-3 text-center text-lg hover:text-white cursor-pointer"
-          @click="navigateToCategory(categoryKey)"
-        >
-          查看更多文章
-          <font-awesome-icon icon="fa-solid fa-caret-right" />
-        </button>
+        <VButton @click="navigateToCategory(categoryKey)" />
       </div>
     </div>
   </div>

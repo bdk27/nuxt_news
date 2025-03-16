@@ -1,7 +1,7 @@
 <script setup lang="ts"></script>
 
 <template>
-  <Navbar />
+  <VNavbar />
   <div class="container mx-auto">
     <NuxtPage />
   </div>

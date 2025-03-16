@@ -35,7 +35,7 @@ onMounted(() => {
       </h1>
     </div>
 
-    <NewsList
+    <VNewsList
       :category="category"
       :articles="newsStore.articles[category]"
       :loading="newsStore.loading"
