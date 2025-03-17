@@ -11,6 +11,7 @@ import {
   faCaretRight,
   faUser,
   faStar,
+  faMagnifyingGlass,
 } from "@fortawesome/free-solid-svg-icons";
 
 config.autoAddCss = false;
@@ -25,7 +26,8 @@ library.add(
   faMicrochip,
   faCaretRight,
   faUser,
-  faStar
+  faStar,
+  faMagnifyingGlass
 );
 
 export default defineNuxtPlugin((nuxtApp) => {

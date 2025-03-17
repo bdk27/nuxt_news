@@ -1,7 +1,9 @@
 <script setup lang="ts"></script>
 
 <template>
-  <h1>search</h1>
+  <div>
+    <h1>Search</h1>
+  </div>
 </template>
 
 <style scoped></style>
