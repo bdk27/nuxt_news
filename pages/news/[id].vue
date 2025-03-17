@@ -1,6 +1,6 @@
 <script setup lang="ts">
 const route = useRoute();
-const newsStore = useEverythingNewsStore();
+const everythingNewsStore = useEverythingNewsStore();
 
 const category = computed<string>(() => route.params.id as string);
 const categories = {
@@ -14,7 +14,7 @@ const categories = {
 };
 
 onMounted(() => {
-  newsStore.fetchEverythingNews(category.value);
+  everythingNewsStore.fetchEverythingNews(category.value);
 });
 </script>
 
@@ -38,9 +38,9 @@ onMounted(() => {
 
     <VNewsList
       :category="category"
-      :articles="newsStore.articles[category]"
-      :loading="newsStore.loading"
-      :error="newsStore.error ?? undefined"
+      :articles="everythingNewsStore.articles[category]"
+      :loading="everythingNewsStore.loading"
+      :error="everythingNewsStore.error ?? undefined"
     />
   </div>
 </template>

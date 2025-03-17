@@ -1,5 +1,5 @@
 <script setup lang="ts">
-const newsStore = useHeadlinesNewsStore();
+const headlinesNewsStore = useHeadlinesNewsStore();
 const router = useRouter();
 
 const categories = {
@@ -13,7 +13,7 @@ const categories = {
 };
 
 onMounted(() => {
-  newsStore.fetchHeadlinesNews(Object.keys(categories));
+  headlinesNewsStore.fetchHeadlinesNews(Object.keys(categories));
 });
 // 跳轉其他頁面
 function navigateToCategory(categoryKey: string) {
@@ -33,9 +33,9 @@ function navigateToCategory(categoryKey: string) {
       </h2>
       <VNewsList
         :category="categoryKey"
-        :articles="newsStore.headlinesArticles[categoryKey]"
-        :loading="newsStore.loading"
-        :error="newsStore.error ?? undefined"
+        :articles="headlinesNewsStore.headlinesArticles[categoryKey]"
+        :loading="headlinesNewsStore.loading"
+        :error="headlinesNewsStore.error ?? undefined"
       />
       <div class="text-center">
         <VButton @click="navigateToCategory(categoryKey)" />
