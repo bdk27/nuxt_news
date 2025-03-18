@@ -28,25 +28,11 @@ function fetchSearchResults() {
       搜尋結果({{ searchNews.articles.length }}篇)
     </h1>
 
-    <div v-if="searchNews.loading" class="text-white text-center">
-      載入中...
-    </div>
-    <div v-else-if="searchNews.error" class="text-white text-center">
-      {{ searchNews.error }}
-    </div>
-    <div
-      v-else-if="searchNews.articles.length === 0"
-      class="text-gray text-center"
-    >
-      沒有找到相關新聞，請嘗試其他關鍵字。
-    </div>
-    <div v-else>
-      <VNewsList
-        :articles="searchNews.articles"
-        :loading="searchNews.loading"
-        :error="searchNews.error ?? undefined"
-      />
-    </div>
+    <VNewsList
+      :articles="searchNews.articles"
+      :loading="searchNews.loading"
+      :error="searchNews.error ?? undefined"
+    />
   </div>
 </template>
 
