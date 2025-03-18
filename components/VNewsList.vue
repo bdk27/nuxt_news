@@ -46,13 +46,7 @@ function navigateToArticle(url: string) {
 }
 // (取消)收藏文章
 function toggleFavorite(article: Article) {
-  const articleData = { id: article.title, article };
-  if (newsStore.isFavorite(article.title)) {
-    confirm("確定要取消收藏嗎？") &&
-      newsStore.removeFavoriteArticle(article.title);
-  } else {
-    newsStore.addFavoriteArticle(articleData);
-  }
+  console.log("收藏文章", article);
 }
 </script>
 
