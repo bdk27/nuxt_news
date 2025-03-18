@@ -2,7 +2,6 @@ export const useSearchNewsStore = defineStore("searchNews", () => {
   const articles = ref<any[]>([]);
   const loading = ref(false);
   const error = ref<null | string>(null);
-  const apiKey = useRuntimeConfig().public.NEWS_API_KEY;
 
   async function fetchSearchNews(keyword: string) {
     if (loading.value) return; // 防止重複請求
@@ -12,7 +11,7 @@ export const useSearchNewsStore = defineStore("searchNews", () => {
     articles.value = [];
 
     try {
-      const url = `https://newsapi.org/v2/everything?q=${keyword}&apiKey=${apiKey}`;
+      const url = `/api/search?keyword=${encodeURIComponent(keyword)}`;
       const res = await fetch(url);
       const data = await res.json();
       if (data.status === "ok") {
