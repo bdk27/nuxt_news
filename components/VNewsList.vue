@@ -58,7 +58,32 @@ function toggleFavorite(article: Article) {
 
 <template>
   <div>
-    <div v-if="loading" class="text-white text-center text-lg">載入中...</div>
+    <div
+      v-if="loading"
+      class="flex items-center justify-center text-white text-center text-lg"
+    >
+      <svg
+        class="w-5 h-5 animate-spin mr-3 text-white"
+        xmlns="http://www.w3.org/2000/svg"
+        fill="none"
+        viewBox="0 0 24 24"
+      >
+        <circle
+          class="opacity-25"
+          cx="12"
+          cy="12"
+          r="10"
+          stroke="currentColor"
+          stroke-width="4"
+        ></circle>
+        <path
+          class="opacity-75"
+          fill="currentColor"
+          d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4z"
+        ></path>
+      </svg>
+      載入中...
+    </div>
     <div v-if="error" class="text-white text-center text-lg">{{ error }}</div>
     <div v-if="!loading && !error">
       <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
@@ -68,7 +93,7 @@ function toggleFavorite(article: Article) {
           class="bg-black-dark rounded-md flex flex-col cursor-pointer shadow hover:shadow-gray transition-shadow group"
           @click="navigateToArticle(article.url)"
         >
-          <div class="relative h-48 overflow-hidden">
+          <div class="relative h-48 overflow-hidden rounded-t-md">
             <img
               :src="article.urlToImage || '/default-image.jpg'"
               :alt="article.title"
