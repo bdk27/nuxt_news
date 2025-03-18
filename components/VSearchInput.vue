@@ -15,12 +15,13 @@ function handleBtnClick() {
 </script>
 
 <template>
-  <div class="relative">
+  <div class="relative w-full md:w-auto">
     <input
       type="text"
       v-model="keywords"
       class="bg-gray-dark p-2 pr-10 outline-none text-white w-full"
       placeholder="搜尋"
+      @keydown.enter="handleBtnClick"
     />
     <button
       class="absolute right-2 top-1/2 transform -translate-y-1/2"

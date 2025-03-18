@@ -13,7 +13,7 @@ const categories = {
 };
 
 onMounted(() => {
-  // headlinesNewsStore.fetchHeadlinesNews(Object.keys(categories));
+  headlinesNewsStore.fetchHeadlinesNews(Object.keys(categories));
 });
 // 跳轉其他頁面
 function navigateToCategory(categoryKey: string) {

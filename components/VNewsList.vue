@@ -65,15 +65,15 @@ function toggleFavorite(article: Article) {
         <div
           v-for="article in articles"
           :key="article.title"
-          class="bg-black-dark rounded-md flex flex-col cursor-pointer shadow hover:shadow-gray transition-shadow"
+          class="bg-black-dark rounded-md flex flex-col cursor-pointer shadow hover:shadow-gray transition-shadow group"
           @click="navigateToArticle(article.url)"
         >
-          <div class="relative h-48">
+          <div class="relative h-48 overflow-hidden">
             <img
               :src="article.urlToImage || '/default-image.jpg'"
               :alt="article.title"
               loading="lazy"
-              class="rounded-t-md w-full h-full object-cover"
+              class="rounded-t-md w-full h-full object-cover transition-transform duration-300 ease-in-out group-hover:scale-110"
             />
           </div>
           <div class="p-4 flex-grow">
