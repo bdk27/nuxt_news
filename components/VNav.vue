@@ -28,12 +28,29 @@ const categoryRouter = [
       >{{ item.name }}</NuxtLink
     >
     <div class="border-l-1 border-gray pl-5 h-6 hidden md:inline-block">
-      <font-awesome-icon
-        icon="fa-solid fa-user"
-        size="lg"
-        class="text-white cursor-pointer hover:text-gray"
-        @click="() => router.push('/user')"
-      />
+      <div class="flex items-center justify-center">
+        <div>
+          <font-awesome-icon
+            icon="fa-solid fa-user"
+            size="lg"
+            class="text-white cursor-pointer hover:text-gray"
+            @click="() => router.push('/user')"
+          />
+        </div>
+        <div class="ml-4 group">
+          <p
+            class="text-white hidden md:block ml-1 cursor-pointer group-hover:text-gray"
+            @click="() => router.push('/myNews')"
+          >
+            <font-awesome-icon
+              icon="fa-solid fa-heart"
+              class="text-white group-hover:text-red-400"
+              size="lg"
+            />
+            我的新聞
+          </p>
+        </div>
+      </div>
     </div>
   </nav>
 </template>

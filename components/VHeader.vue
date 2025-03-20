@@ -14,12 +14,21 @@ const router = useRouter();
         <VNav class="hidden lg:block" />
         <VSearchInput />
         <div class="md:hidden block">
-          <font-awesome-icon
-            icon="fa-solid fa-user"
-            size="lg"
-            class="text-white cursor-pointer hover:text-gray ml-5"
-            @click="() => router.push('/user')"
-          />
+          <div class="flex items-center justify-center gap-5">
+            <font-awesome-icon
+              icon="fa-solid fa-user"
+              size="lg"
+              class="text-white cursor-pointer hover:text-gray ml-5"
+              @click="() => router.push('/user')"
+            />
+
+            <font-awesome-icon
+              icon="fa-solid fa-heart"
+              class="text-white hover:text-red-400"
+              size="lg"
+              @click="() => router.push('/myNews')"
+            />
+          </div>
         </div>
       </div>
 

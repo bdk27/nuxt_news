@@ -15,6 +15,8 @@ import {
   faArrowRight,
   faEye,
   faEyeSlash,
+  faTriangleExclamation,
+  faHeart,
 } from "@fortawesome/free-solid-svg-icons";
 
 config.autoAddCss = false;
@@ -33,7 +35,9 @@ library.add(
   faMagnifyingGlass,
   faArrowRight,
   faEye,
-  faEyeSlash
+  faEyeSlash,
+  faTriangleExclamation,
+  faHeart
 );
 
 export default defineNuxtPlugin((nuxtApp) => {
