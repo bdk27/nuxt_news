@@ -1,5 +1,5 @@
 <script setup lang="ts">
-const newsStore = useFavoriteNewsStore();
+const favoriteNewsStore = useFavoriteNewsStore();
 
 interface Article {
   title: string;
@@ -27,6 +27,11 @@ const { articles, loading, error } = defineProps({
     default: "",
   },
 });
+
+// onMounted(() => {
+//   favoriteNewsStore.fetchFavorites();
+// });
+
 // 調整日期格式(例: 2025-01-01 下午12:00)
 function formatDate(data: string) {
   const options: Intl.DateTimeFormatOptions = {
@@ -43,10 +48,6 @@ function formatDate(data: string) {
 // 查看完整文章
 function navigateToArticle(url: string) {
   window.open(url, "_blank");
-}
-// (取消)收藏文章
-function toggleFavorite(article: Article) {
-  console.log("收藏文章", article);
 }
 </script>
 
@@ -106,16 +107,13 @@ function toggleFavorite(article: Article) {
                   {{ article.author || "anonymous" }}
                 </p>
               </div>
-              <button
-                @click.stop="toggleFavorite(article)"
-                class="text-gray hover:text-amber-300"
-              >
+              <button class="text-gray hover:text-amber-300">
                 <font-awesome-icon
                   icon="fa-solid fa-star"
                   size="lg"
                   class="hover:text-amber-300 cursor-pointer"
                   :class="
-                    newsStore.isFavorite(article.title)
+                    favoriteNewsStore.isFavorite(article.title)
                       ? 'text-amber-300'
                       : 'text-gray'
                   "

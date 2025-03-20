@@ -14,7 +14,12 @@ const categories = {
 
 onMounted(() => {
   headlinesNewsStore.fetchHeadlinesNews(Object.keys(categories));
+  testConnection();
 });
+async function testConnection() {
+  let { data, error } = await supabase.from("nuxt-news-favorite").select("*");
+  console.log("Supabase 連線測試：", data, error);
+}
 // 跳轉其他頁面
 function navigateToCategory(categoryKey: string) {
   router.push(`/news/${categoryKey}`);

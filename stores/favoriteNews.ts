@@ -1,32 +1,47 @@
 export const useFavoriteNewsStore = defineStore("favoriteNews", () => {
   // 收藏的新聞列表
-  const favoriteArticles = ref<{ id: string; article: any }[]>([]);
+  const favorites = ref<string[]>([]);
+  const userId = ref<string>("");
 
-  // 添加新聞到收藏
-  function addFavoriteArticle(article: { id: string; article: any }) {
-    // 檢查是否已經收藏過
-    const exists = favoriteArticles.value.some((fav) => fav.id === article.id);
-    if (!exists) {
-      favoriteArticles.value.push(article);
-    }
-  }
-
-  // 從收藏中移除新聞
-  function removeFavoriteArticle(articleId: string) {
-    favoriteArticles.value = favoriteArticles.value.filter(
-      (fav) => fav.id !== articleId
-    );
-  }
+  const fetchUser = async () => {
+    const { data: user } = await supabase.auth.getUser();
+    userId.value = user?.user?.id || "";
+  };
 
   // 檢查是否已收藏
-  function isFavorite(articleId: string): boolean {
-    return favoriteArticles.value.some((fav) => fav.id === articleId);
-  }
+  const isFavorite = (title: string) => {
+    return favorites.value.includes(title);
+  };
+
+  // 獲取收藏新聞
+  // const fetchFavorites = async () => {
+  //   const { data } = await getFavorites(userId.value);
+  //   if (data) {
+  //     favorites.value = data.map((item) => item.title);
+  //   }
+  // };
+
+  // const toggleFavorite = async (article: { title: string; url: string }) => {
+  //   if (isFavorite(article.title)) {
+  //     // 取消收藏
+  //     await removeFromFavorites(userId.value, article.title);
+  //     favorites.value = favorites.value.filter((t) => t !== article.title);
+  //   } else {
+  //     // 加入收藏
+  //     await saveToFavorites(userId.value, article);
+  //     favorites.value.push(article.title);
+  //   }
+  // };
+
+  // onMounted(async () => {
+  //   await fetchUser();
+  //   await fetchFavorites();
+  // });
 
   return {
-    favoriteArticles,
-    addFavoriteArticle,
-    removeFavoriteArticle,
+    favorites,
     isFavorite,
+    // fetchFavorites,
+    // toggleFavorite,
   };
 });
