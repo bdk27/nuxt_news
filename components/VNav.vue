@@ -44,8 +44,7 @@ const categoryRouter = [
           >
             <font-awesome-icon
               icon="fa-solid fa-heart"
-              class="text-white group-hover:text-red-400"
-              size="lg"
+              class="text-white group-hover:text-red-400 text-md"
             />
             我的新聞
           </p>
