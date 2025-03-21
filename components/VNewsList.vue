@@ -1,18 +1,7 @@
 <script setup lang="ts">
+const router = useRouter();
 const favoriteNewsStore = useFavoriteNewsStore();
 
-interface Article {
-  title: string;
-  urlToImage?: string;
-  publishedAt: string;
-  author?: string;
-  source: {
-    name: string;
-  };
-  description?: string;
-  content?: string;
-  url: string;
-}
 const { articles, loading, error } = defineProps({
   articles: {
     type: Array as PropType<Article[]>,
@@ -27,6 +16,7 @@ const { articles, loading, error } = defineProps({
     default: "",
   },
 });
+const errorMsg = ref("");
 
 // onMounted(() => {
 //   favoriteNewsStore.fetchFavorites();
@@ -48,6 +38,54 @@ function formatDate(data: string) {
 // 查看完整文章
 function navigateToArticle(url: string) {
   window.open(url, "_blank");
+}
+//收藏(取消)文章
+async function toggleFavorite(article: Article) {
+  // 如果尚未登入，導向登入頁
+  if (!favoriteNewsStore.user) {
+    router.push("/user");
+    return;
+  }
+
+  // 查詢資料庫中是否存在該收藏記錄
+  if (favoriteNewsStore.isFavorite(article.title)) {
+    // 如果已收藏，則刪除該筆記錄 (從 DB)
+    const { error: deleteError } = await supabase
+      .from("nuxt-news-favorite")
+      .delete()
+      .eq("user_id", favoriteNewsStore.user.id)
+      .eq("title", article.title);
+    if (deleteError) {
+      errorMsg.value = deleteError.message;
+      return;
+    }
+    // 從 store 移除該收藏
+    favoriteNewsStore.removeFavorite(article.title);
+    alert("已取消收藏！");
+  } else {
+    // 如果尚未收藏，則插入新記錄 (到 DB)
+    const { data: insertData, error: insertError } = await supabase
+      .from("nuxt-news-favorite")
+      .insert([
+        {
+          user_id: favoriteNewsStore.user.id,
+          title: article.title,
+          published_at: article.publishedAt,
+          source: article.source.name,
+          author: article.author || "anonymous",
+          url: article.url,
+          description: article.description || "more...",
+          urlToImage: article.urlToImage,
+        },
+      ]);
+    if (insertError) {
+      errorMsg.value = insertError.message;
+      return;
+    }
+    // 將整個 article 物件存入 store 收藏列表
+    favoriteNewsStore.addFavorite(article);
+    alert("收藏成功！");
+  }
 }
 </script>
 
@@ -107,7 +145,10 @@ function navigateToArticle(url: string) {
                   {{ article.author || "anonymous" }}
                 </p>
               </div>
-              <button class="text-gray hover:text-amber-300">
+              <button
+                class="text-gray hover:text-amber-300"
+                @click.stop="toggleFavorite(article)"
+              >
                 <font-awesome-icon
                   icon="fa-solid fa-star"
                   size="lg"

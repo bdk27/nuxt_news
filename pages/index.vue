@@ -1,4 +1,5 @@
 <script setup lang="ts">
+const favoriteNewsStore = useFavoriteNewsStore();
 const headlinesNewsStore = useHeadlinesNewsStore();
 const router = useRouter();
 
@@ -13,12 +14,30 @@ const categories = {
 };
 
 onMounted(() => {
+  fetchArticles();
   headlinesNewsStore.fetchHeadlinesNews(Object.keys(categories));
-  testConnection();
 });
-async function testConnection() {
-  let { data, error } = await supabase.from("nuxt-news-favorite").select("*");
-  console.log("Supabase 連線測試：", data, error);
+
+const error = ref("");
+async function fetchArticles() {
+  error.value = "";
+  try {
+    const { data, error: fetchError } = await supabase
+      .from("nuxt-news-favorite")
+      .select("*");
+    console.log("data", data);
+
+    if (fetchError) {
+      console.log("error-msg", fetchError.message);
+
+      error.value = fetchError.message;
+    } else {
+      favoriteNewsStore.favorites = data as Article[];
+      console.log("favorites", favoriteNewsStore.favorites);
+    }
+  } catch (err: any) {
+    error.value = err.message;
+  }
 }
 // 跳轉其他頁面
 function navigateToCategory(categoryKey: string) {

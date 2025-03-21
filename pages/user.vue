@@ -7,12 +7,16 @@ const password = ref("");
 const errorMsg = ref("");
 const isLoading = ref(false);
 
-onMounted(async () => {
+// 取得user資料
+async function getUserData() {
+  if (favoriteNewsStore.user) return;
+
   const { data } = await supabase.auth.getUser();
   if (data?.user) {
     favoriteNewsStore.setUser(data.user);
   }
-});
+}
+getUserData();
 
 // 顯示/關閉密碼
 const showPassword = ref(false);
@@ -20,7 +24,7 @@ function toggleShowPassword() {
   showPassword.value = !showPassword.value;
 }
 // 切換登入/註冊
-const authMode = ref<"login" | "register">("register");
+const authMode = ref<"login" | "register">("login");
 function toggleAuthMode(mode: "login" | "register") {
   email.value = "";
   password.value = "";
