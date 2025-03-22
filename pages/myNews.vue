@@ -1,5 +1,29 @@
 <script setup lang="ts">
 const favoriteNewsStore = useFavoriteNewsStore();
+
+// 取的收藏文章
+const error = ref("");
+async function fetchArticles() {
+  error.value = "";
+  try {
+    const { data, error: fetchError } = await supabase
+      .from("nuxt-news-favorite")
+      .select("*");
+    console.log("data", data);
+
+    if (fetchError) {
+      console.log("error-msg", fetchError.message);
+
+      error.value = fetchError.message;
+    } else {
+      favoriteNewsStore.favorites = data as Article[];
+      console.log("favorites", favoriteNewsStore.favorites);
+    }
+  } catch (err: any) {
+    error.value = err.message;
+  }
+}
+fetchArticles();
 </script>
 
 <template>
@@ -15,9 +39,9 @@ const favoriteNewsStore = useFavoriteNewsStore();
         我的收藏 ({{ favoriteNewsStore.favorites.length }}篇)
       </h1>
       <VNewsList
-        :articles="favoriteNewsStore.favorites.map((fav: any) => fav.article)"
+        :articles="favoriteNewsStore.favorites"
         :loading="false"
-        :error="undefined"
+        :error="error"
       />
     </div>
   </div>

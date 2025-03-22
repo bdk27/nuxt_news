@@ -41,6 +41,10 @@ function navigateToArticle(url: string) {
 }
 //收藏(取消)文章
 async function toggleFavorite(article: Article) {
+  // 查無資料
+  if (!article || !article.title) {
+    return;
+  }
   // 如果尚未登入，導向登入頁
   if (!favoriteNewsStore.user) {
     router.push("/user");
