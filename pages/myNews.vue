@@ -1,6 +1,11 @@
 <script setup lang="ts">
 const favoriteNewsStore = useFavoriteNewsStore();
 
+onMounted(() => {
+  if (favoriteNewsStore.user) {
+    fetchArticles();
+  }
+});
 // 取的收藏文章
 const error = ref("");
 async function fetchArticles() {
@@ -9,21 +14,16 @@ async function fetchArticles() {
     const { data, error: fetchError } = await supabase
       .from("nuxt-news-favorite")
       .select("*");
-    console.log("data", data);
 
     if (fetchError) {
-      console.log("error-msg", fetchError.message);
-
       error.value = fetchError.message;
     } else {
       favoriteNewsStore.favorites = data as Article[];
-      console.log("favorites", favoriteNewsStore.favorites);
     }
   } catch (err: any) {
     error.value = err.message;
   }
 }
-fetchArticles();
 </script>
 
 <template>

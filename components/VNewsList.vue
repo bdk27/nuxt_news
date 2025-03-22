@@ -18,10 +18,6 @@ const { articles, loading, error } = defineProps({
 });
 const errorMsg = ref("");
 
-// onMounted(() => {
-//   favoriteNewsStore.fetchFavorites();
-// });
-
 // 調整日期格式(例: 2025-01-01 下午12:00)
 function formatDate(data: string) {
   const options: Intl.DateTimeFormatOptions = {
@@ -121,7 +117,9 @@ async function toggleFavorite(article: Article) {
       </svg>
       載入中...
     </div>
-    <div v-if="error" class="text-white text-center text-lg">{{ error }}</div>
+    <div v-if="error || errorMsg" class="text-white text-center text-lg">
+      {{ error || errorMsg }}
+    </div>
     <div v-if="!loading && !error">
       <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
         <div
