@@ -1,9 +1,10 @@
 export const useFavoriteNewsStore = defineStore("favoriteNews", () => {
   // 收藏的新聞列表
   const favorites = ref<Article[]>([]);
-
   // 使用者資料（登入後的資料）
   const user = ref<any>(null);
+  const error = ref("");
+
   // 更新使用者資料
   function setUser(userData: any) {
     user.value = userData;
@@ -30,14 +31,36 @@ export const useFavoriteNewsStore = defineStore("favoriteNews", () => {
       (article) => article.title !== title
     );
   }
+  // 取得收藏文章
+  async function fetchArticles() {
+    error.value = "";
+    try {
+      // 如果有登入，則只抓取該使用者的收藏
+      if (user.value) {
+        const { data, error: fetchError } = await supabase
+          .from("nuxt-news-favorite")
+          .select("*")
+          .eq("user_id", user.value.id);
+        if (fetchError) {
+          error.value = fetchError.message;
+        } else {
+          favorites.value = data as Article[];
+        }
+      }
+    } catch (err: any) {
+      error.value = err.message;
+    }
+  }
 
   return {
     favorites,
     user,
+    error,
     setUser,
     isFavorite,
     clearUser,
     addFavorite,
     removeFavorite,
+    fetchArticles,
   };
 });

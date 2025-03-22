@@ -7,20 +7,6 @@ const password = ref("");
 const errorMsg = ref("");
 const isLoading = ref(false);
 
-onMounted(() => {
-  getUserData();
-});
-// 取得user資料
-async function getUserData() {
-  if (favoriteNewsStore.user) return;
-  isLoading.value = true;
-
-  const { data } = await supabase.auth.getUser();
-  if (data?.user) {
-    favoriteNewsStore.setUser(data.user);
-  }
-  isLoading.value = false;
-}
 // 顯示/關閉密碼
 const showPassword = ref(false);
 function toggleShowPassword() {

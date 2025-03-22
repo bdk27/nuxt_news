@@ -2,28 +2,8 @@
 const favoriteNewsStore = useFavoriteNewsStore();
 
 onMounted(() => {
-  if (favoriteNewsStore.user) {
-    fetchArticles();
-  }
+  favoriteNewsStore.fetchArticles();
 });
-// 取的收藏文章
-const error = ref("");
-async function fetchArticles() {
-  error.value = "";
-  try {
-    const { data, error: fetchError } = await supabase
-      .from("nuxt-news-favorite")
-      .select("*");
-
-    if (fetchError) {
-      error.value = fetchError.message;
-    } else {
-      favoriteNewsStore.favorites = data as Article[];
-    }
-  } catch (err: any) {
-    error.value = err.message;
-  }
-}
 </script>
 
 <template>
@@ -41,7 +21,7 @@ async function fetchArticles() {
       <VNewsList
         :articles="favoriteNewsStore.favorites"
         :loading="false"
-        :error="error"
+        :error="favoriteNewsStore.error"
       />
     </div>
   </div>
