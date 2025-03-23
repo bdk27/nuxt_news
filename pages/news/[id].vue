@@ -20,7 +20,9 @@ onMounted(() => {
 
 <template>
   <div>
-    <div class="flex items-center px-3">
+    <VSearchRecords />
+
+    <div class="flex items-center">
       <div
         class="mr-1 rounded-full text-white flex items-center justify-center w-[30px] h-[30px]"
         :style="{ background: categories[category as keyof typeof categories]?.color }"

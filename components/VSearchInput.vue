@@ -1,16 +1,21 @@
 <script setup lang="ts">
 const router = useRouter();
+const favoriteNewsStore = useFavoriteNewsStore();
+const searchRecordsStore = useSearchRecordsStore();
 
 const keywords = ref("");
 
-function handleBtnClick() {
+async function handleBtnClick() {
   // 判斷關鍵字是否為空
   if (!keywords.value.trim()) return;
-  router
-    .push({ path: "/search", query: { q: keywords.value.trim() } })
-    .then(() => {
-      keywords.value = "";
-    });
+  if (favoriteNewsStore.user) {
+    await searchRecordsStore.insertSearchRecord(
+      favoriteNewsStore.user.id,
+      keywords.value.trim()
+    );
+  }
+  router.push({ path: "/search", query: { q: keywords.value.trim() } });
+  keywords.value = "";
 }
 </script>
 

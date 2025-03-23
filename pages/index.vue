@@ -23,6 +23,7 @@ function navigateToCategory(categoryKey: string) {
 
 <template>
   <div>
+    <VSearchRecords />
     <div
       v-for="(categoryName, categoryKey) in categories"
       :key="categoryKey"

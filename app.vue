@@ -1,5 +1,6 @@
 <script setup lang="ts">
 const favoriteNewsStore = useFavoriteNewsStore();
+const searchRecordsStore = useSearchRecordsStore();
 
 onMounted(() => {
   getUserData();
@@ -10,6 +11,7 @@ async function getUserData() {
   if (data?.user) {
     favoriteNewsStore.setUser(data.user);
     favoriteNewsStore.fetchArticles();
+    searchRecordsStore.fetchSearchRecords(data.user.id);
   }
 }
 </script>

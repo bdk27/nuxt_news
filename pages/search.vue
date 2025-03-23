@@ -24,7 +24,7 @@ function fetchSearchResults() {
 
 <template>
   <div class="my-5">
-    <h1 class="text-2xl font-bold text-white mb-4">
+    <h1 class="text-2xl font-bold text-white mb-4" v-if="!searchNews.loading">
       搜尋結果({{ searchNews.articles.length }}篇)
     </h1>
 
