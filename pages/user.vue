@@ -34,7 +34,6 @@ async function register() {
       email: email.value.trim(),
       password: password.value.trim(),
     });
-    console.log("data", data);
     if (error) {
       errorMsg.value = error.message;
     } else {
@@ -63,7 +62,6 @@ async function login() {
       email: email.value.trim(),
       password: password.value.trim(),
     });
-    console.log(data);
 
     if (error) {
       errorMsg.value = error.message;

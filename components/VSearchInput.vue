@@ -9,10 +9,7 @@ async function handleBtnClick() {
   // 判斷關鍵字是否為空
   if (!keywords.value.trim()) return;
   if (favoriteNewsStore.user) {
-    await searchRecordsStore.insertSearchRecord(
-      favoriteNewsStore.user.id,
-      keywords.value.trim()
-    );
+    await searchRecordsStore.insertSearchRecord(keywords.value.trim());
   }
   router.push({ path: "/search", query: { q: keywords.value.trim() } });
   keywords.value = "";
